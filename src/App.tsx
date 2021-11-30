@@ -1,8 +1,15 @@
-import Home from "./views/Home";
+// import Home from "./views/Home";
+import Router from "./routes";
+import { ToastContainer } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
-    <Home />
+    <>
+      <ToastContainer />
+      <Router />
+    </>
   );
 }
 

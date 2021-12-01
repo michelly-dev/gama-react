@@ -1,5 +1,5 @@
 import React, { useState, useCallback, FormEvent } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import { Container } from './style';
@@ -15,12 +15,12 @@ const SignUp: React.FC = () => {
   const [data, setData] = useState<IData>({} as IData);
   const [load, setLoad] = useState(false);
 
-  const history = useNavigate();
+  const history = useHistory();
 
   const handleSubmit = useCallback(async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setLoad(true)
-    const result = api.post('/users', data).then(_ => history('/signin'));
+    const result = api.post('/users', data).then(_ => history.push('/signin'));
 
     toast.promise(
       result,

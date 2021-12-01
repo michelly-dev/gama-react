@@ -1,5 +1,6 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
+import PrivateRoutes from "./private.routes";
 
 import Home from "./views/Home";
 import Contact from "./views/Contact";
@@ -10,15 +11,13 @@ import Dashboard from "./views/Dashboard";
 
 const Router: React.FC = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/signin" element={<SignIn />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-      </Routes>
-    </BrowserRouter>
+    <Switch>
+      <Route path="/" exact component={Home} />
+      <Route path="/contact" component={Contact} />
+      <Route path="/signin" component={SignIn} />
+      <Route path="/signup" component={SignUp} />
+      <PrivateRoutes path="/dashboard" exact component={Dashboard} />
+    </Switch>
   );
 }
 

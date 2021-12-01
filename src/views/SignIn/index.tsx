@@ -1,5 +1,5 @@
 import React, { useState, useCallback, FormEvent } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Loader from '../../components/Loader';
 
@@ -8,25 +8,25 @@ import { api } from "../../services/api";
 
 interface IData {
   email: string;
-  senha: string;
+  password: string;
 }
 const SignIn: React.FC = () => {
   const [data, setData] = useState<IData>({} as IData);
 
   const [load, setLoad] = useState(false);
 
-  const history = useNavigate();
+  const history = useHistory();
 
   const handleSubmit = useCallback(async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setLoad(true)
-    const result = api.post('session', data).then(
+    const result = api.post('/session', data).then(
       response => {
         const sessionToken = JSON.stringify(response.data.token)
         localStorage.setItem('@gamaServiceToken', sessionToken)
         toast.success("Cadastro realizado com sucesso!")
         console.log(response.data)
-        history('/dashboard')
+        history.push('/dashboard')
       }
     );
 
@@ -60,7 +60,7 @@ const SignIn: React.FC = () => {
           <input
             type="password"
             placeholder="Informe sua senha"
-            onChange={e => setData({ ...data, senha: e.target.value })} />
+            onChange={e => setData({ ...data, password: e.target.value })} />
           <input type="submit" value="Logar" />
         </form>
         <Link to="/signup">Clique aqui para cadastrar.</Link>
